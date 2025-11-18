@@ -65,7 +65,7 @@ const FlightPredictionForm = () => {
     { code: 'JAN', name: 'Jackson-Medgar Wiley Evers' },
     { code: 'CID', name: 'Cedar Rapids' },
     { code: 'MOB', name: 'Mobile Regional' },
-    { code: 'ORD', name: "Chicago O'Hare" },
+    { code: 'ORD', name: 'Chicago O\'Hare' },
     { code: 'LAX', name: 'Los Angeles' },
     { code: 'DEN', name: 'Denver International' },
     { code: 'SEA', name: 'Seattle-Tacoma' },
@@ -166,8 +166,15 @@ const FlightPredictionForm = () => {
 
   return (
     <div className="w-full max-w-5xl mx-auto space-y-8">
-      <Card className="relative bg-gradient-to-br from-background/80 to-background/95 rounded-3xl shadow-md border border-transparent overflow-hidden">
-        <CardHeader className="text-center relative z-10 pb-8">
+      <Card className="
+        relative
+        bg-gradient-to-br from-background/80 to-background/95
+        rounded-3xl
+        shadow-xl
+        overflow-hidden
+        border-none
+      ">
+        <CardHeader className="text-center pb-8">
           <CardTitle className="text-3xl lg:text-4xl text-primary flex items-center justify-center gap-4 mb-4">
             <div className="relative">
               <Plane className="w-10 h-10 animate-pulse" />
@@ -180,7 +187,7 @@ const FlightPredictionForm = () => {
           </CardDescription>
         </CardHeader>
 
-        <CardContent className="relative z-10">
+        <CardContent>
           <form onSubmit={handleSubmit} className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Day of Month */}
@@ -190,7 +197,7 @@ const FlightPredictionForm = () => {
                   Day of Month
                 </Label>
                 <Select onValueChange={(value) => handleInputChange('dayOfMonth', value)}>
-                  <SelectTrigger className="h-12 bg-background/80 border-2 border-border hover:border-primary focus:border-primary shadow-sm transition-all duration-200 rounded-xl">
+                  <SelectTrigger className="h-12 bg-background/80 shadow-sm transition-all duration-200 rounded-xl border-none">
                     <SelectValue placeholder="Select day (1-31)" />
                   </SelectTrigger>
                   <SelectContent className="max-h-60">
@@ -210,7 +217,7 @@ const FlightPredictionForm = () => {
                   Operating Airline
                 </Label>
                 <Select onValueChange={(value) => handleInputChange('operatingAirline', value)}>
-                  <SelectTrigger className="h-12 bg-background/80 border-2 border-border hover:border-primary focus:border-primary shadow-sm transition-all duration-200 rounded-xl">
+                  <SelectTrigger className="h-12 bg-background/80 shadow-sm transition-all duration-200 rounded-xl border-none">
                     <SelectValue placeholder="Choose airline" />
                   </SelectTrigger>
                   <SelectContent className="max-h-60">
@@ -234,7 +241,7 @@ const FlightPredictionForm = () => {
                   Tail Number
                 </Label>
                 <Select onValueChange={(value) => handleInputChange('tailNumber', value)}>
-                  <SelectTrigger className="h-12 bg-background/80 border-2 border-border hover:border-primary focus:border-primary shadow-sm transition-all duration-200 rounded-xl">
+                  <SelectTrigger className="h-12 bg-background/80 shadow-sm transition-all duration-200 rounded-xl border-none">
                     <SelectValue placeholder="Select tail number" />
                   </SelectTrigger>
                   <SelectContent>
@@ -254,7 +261,7 @@ const FlightPredictionForm = () => {
                   Departure Hour (0-23)
                 </Label>
                 <Select onValueChange={(value) => handleInputChange('depHour', value)}>
-                  <SelectTrigger className="h-12 bg-background/80 border-2 border-border hover:border-primary focus:border-primary shadow-sm transition-all duration-200 rounded-xl">
+                  <SelectTrigger className="h-12 bg-background/80 shadow-sm transition-all duration-200 rounded-xl border-none">
                     <SelectValue placeholder="Select hour" />
                   </SelectTrigger>
                   <SelectContent className="max-h-60">
@@ -279,7 +286,7 @@ const FlightPredictionForm = () => {
                   Origin Airport
                 </Label>
                 <Select onValueChange={(value) => handleInputChange('origin', value)}>
-                  <SelectTrigger className="h-12 bg-background/80 border-2 border-border hover:border-primary focus:border-primary shadow-sm transition-all duration-200 rounded-xl">
+                  <SelectTrigger className="h-12 bg-background/80 shadow-sm transition-all duration-200 rounded-xl border-none">
                     <SelectValue placeholder="Departure airport" />
                   </SelectTrigger>
                   <SelectContent className="max-h-60">
@@ -303,7 +310,7 @@ const FlightPredictionForm = () => {
                   Destination Airport
                 </Label>
                 <Select onValueChange={(value) => handleInputChange('destination', value)}>
-                  <SelectTrigger className="h-12 bg-background/80 border-2 border-border hover:border-primary focus:border-primary shadow-sm transition-all duration-200 rounded-xl">
+                  <SelectTrigger className="h-12 bg-background/80 shadow-sm transition-all duration-200 rounded-xl border-none">
                     <SelectValue placeholder="Arrival airport" />
                   </SelectTrigger>
                   <SelectContent className="max-h-60">
@@ -321,41 +328,59 @@ const FlightPredictionForm = () => {
               </div>
             </div>
 
-            {/* Weekend Radio */}
-            <div className="space-y-4 p-6 bg-gradient-to-r from-background/50 to-background/30 rounded-xl border border-border/50">
-              <Label className="text-foreground font-semibold text-lg">Flight Day Type</Label>
-              <RadioGroup
-                value={formData.isWeekend}
-                onValueChange={(value) => handleInputChange('isWeekend', value)}
-                className="flex gap-8"
-              >
-                <div className="flex items-center space-x-3 p-4 rounded-lg border-2 border-border hover:border-primary transition-colors cursor-pointer">
+            {/* Weekend Radio, centered and shadow-only */}
+            <div className="
+              py-6
+              bg-background/40
+              rounded-2xl
+              shadow-md
+              mx-auto
+              border-none
+            ">
+              <div className="text-lg font-semibold text-center mb-4">Flight Day Type</div>
+              <div className="flex justify-center gap-8">
+                {/* Weekday Option */}
+                <div className="flex items-center space-x-3 p-4 rounded-lg bg-transparent shadow-none border-none">
                   <RadioGroupItem value="0" id="weekend-no" />
-                  <Label htmlFor="weekend-no" className="cursor-pointer font-medium">
-                    <div className="flex flex-col">
+                  <Label htmlFor="weekend-no" className="cursor-pointer font-medium text-center">
+                    <div className="flex flex-col items-center">
                       <span>Weekday</span>
                       <span className="text-sm text-muted-foreground">Monday - Friday</span>
                     </div>
                   </Label>
                 </div>
-                <div className="flex items-center space-x-3 p-4 rounded-lg border-2 border-border hover:border-primary transition-colors cursor-pointer">
+                {/* Weekend Option */}
+                <div className="flex items-center space-x-3 p-4 rounded-lg bg-transparent shadow-none border-none">
                   <RadioGroupItem value="1" id="weekend-yes" />
-                  <Label htmlFor="weekend-yes" className="cursor-pointer font-medium">
-                    <div className="flex flex-col">
+                  <Label htmlFor="weekend-yes" className="cursor-pointer font-medium text-center">
+                    <div className="flex flex-col items-center">
                       <span>Weekend</span>
                       <span className="text-sm text-muted-foreground">Saturday - Sunday</span>
                     </div>
                   </Label>
                 </div>
-              </RadioGroup>
+              </div>
             </div>
 
             {/* Submit Button */}
             <div className="pt-4">
-              <Button 
+              <Button
                 type="submit"
                 size="lg"
-                className="w-full text-xl py-8 rounded-full shadow-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:scale-105 transition-transform duration-200"
+                className="
+                  w-full
+                  text-xl
+                  py-8
+                  rounded-full
+                  shadow-lg
+                  bg-gradient-to-r
+                  from-primary-glow
+                  via-primary
+                  to-teal-400
+                  hover:scale-105
+                  transition-transform
+                  duration-200
+                "
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -377,11 +402,17 @@ const FlightPredictionForm = () => {
 
       {/* Prediction Result */}
       {prediction && (
-        <Card className={`animate-fade-in shadow-3xl border-4 rounded-3xl transition-all duration-500 ${
-          prediction.prediction === 'Delayed'
-            ? 'border-red-400 bg-gradient-to-br from-red-100 via-yellow-50 to-pink-50 dark:from-red-900/30 dark:to-yellow-900/30'
-            : 'border-teal-400 bg-gradient-to-br from-green-100 via-teal-50 to-cyan-50 dark:from-green-900/30 dark:to-teal-900/30'
-        }`}>
+        <Card className={`
+          animate-fade-in
+          shadow-2xl
+          rounded-3xl
+          transition-all duration-500
+          border-none
+          ${prediction.prediction === 'Delayed'
+            ? 'bg-gradient-to-br from-red-100 via-yellow-50 to-pink-50 dark:from-red-900/30 dark:to-yellow-900/30'
+            : 'bg-gradient-to-br from-green-100 via-teal-50 to-cyan-50 dark:from-green-900/30 dark:to-teal-900/30'
+          }
+        `}>
           <CardHeader className="text-center pb-4">
             <CardTitle className={`text-2xl flex items-center justify-center gap-3 ${
               prediction.prediction === 'Delayed' ? 'text-red-600 dark:text-red-400' : 'text-teal-600 dark:text-teal-300'
