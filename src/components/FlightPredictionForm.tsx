@@ -165,12 +165,13 @@ const FlightPredictionForm = () => {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto space-y-8">
+    <div className="w-full max-w-5xl mx-auto space-y-8 ">
       <Card className="
         relative
         bg-gradient-to-br from-background/80 to-background/95
         rounded-3xl
-        border-4 border-transparent
+        shadow-md
+        border-1 border-transparent
         shadow-3xl
         overflow-hidden
         before:content-[''] before:absolute before:inset-0 before:rounded-3xl
@@ -338,11 +339,11 @@ const FlightPredictionForm = () => {
               p-6
               bg-gradient-to-r from-background/50 to-background/30
               rounded-xl
-              border-2
+              border-1
               border-border/50
               shadow-md
               items-center
-              hover:shadow-lg
+              
               transition-all
               duration-200
             ">
