@@ -8,7 +8,7 @@ const Index = () => {
       {/* Hero Section */}
       <div className="relative">
         <div 
-          className="h-[60vh] lg:h-[70vh] bg-fill bg-center bg-no-repeat relative"
+          className="h-[60vh] lg:h-[70vh] bg-fit bg-center bg-no-repeat relative"
           style={{ backgroundImage: `url(${heroImage})` }}
         >
           <div className="absolute inset-0 bg-gradient-hero/80"></div>
