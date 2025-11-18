@@ -172,10 +172,10 @@ const FlightPredictionForm = () => {
         rounded-3xl
         shadow-md
         border-1 border-transparent
-        shadow-3xl
+        shadow-1xl
         overflow-hidden
         before:content-[''] before:absolute before:inset-0 before:rounded-3xl
-        before:border-[6px] before:border-transparent
+        before:border-[3px] before:border-transparent
         before:border-image-[linear-gradient(120deg, hsl(210,80%,85%), hsl(192,80%,75%), hsl(174,80%,68%))]
         before:border-image-slice-[1] before:animate-pulse
         ">
@@ -341,11 +341,10 @@ const FlightPredictionForm = () => {
               rounded-xl
               border-1
               border-border/50
-              shadow-md
+              shadow-
               items-center
               
-              transition-all
-              duration-200
+              
             ">
               <Label className="text-foreground font-semibold text-lg">Flight Day Type</Label>
               <RadioGroup
