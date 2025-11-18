@@ -19,9 +19,10 @@ All colors MUST be HSL.
     --popover-foreground: 215 25% 15%;
 
     /* Primary: Deep aviation blue */
-    --primary: 215 85% 25%;
-    --primary-foreground: 210 40% 98%;
-    --primary-glow: 215 85% 45%;
+   --primary: 200 86% 40%;
+--primary-foreground: 210 40% 98%;
+--primary-glow: 174 80% 54%;
+
 
     /* Secondary: Sky blue */
     --secondary: 210 60% 88%;
@@ -42,9 +43,10 @@ All colors MUST be HSL.
     --ring: 215 85% 25%;
 
     /* Custom aviation gradients */
-    --gradient-sky: linear-gradient(135deg, hsl(210 85% 65%), hsl(215 85% 45%));
-    --gradient-hero: linear-gradient(135deg, hsl(215 85% 25%), hsl(210 85% 35%));
-    --gradient-card: linear-gradient(135deg, hsl(210, 80%, 98%), hsl(192, 90%, 94%), hsl(168, 70%, 85%));
+    --gradient-sky: linear-gradient(135deg, hsl(204, 72%, 68%), hsl(187, 92%, 67%), hsl(158, 80%, 68%));
+--gradient-hero: linear-gradient(135deg, hsl(210, 88%, 32%), hsl(195, 75%, 40%), hsl(174, 70%, 50%));
+--gradient-card: linear-gradient(135deg, hsl(210, 80%, 98%), hsl(192, 90%, 94%), hsl(168, 70%, 85%));
+
 
     
     /* Custom shadows */
