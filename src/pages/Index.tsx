@@ -8,10 +8,10 @@ const Index = () => {
       {/* Hero Section */}
       <div className="relative">
         <div 
-          className="h-[60vh] lg:h-[70vh] w-full h-[250px] bg-cover bg-center-bottom bg-no-repeat mb-8 md:h-[350px] relative"
+          className="h-[60vh] lg:h-[70vh] w-full bg-cover bg-center-bottom bg-no-repeat mb-8 relative"
           style={{ backgroundImage: `url(${heroImage})` }}
         >
-          <div className="absolute inset-0 bg-gradient-hero/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-gray-900/80 to-gray-800/80"></div>
           <div className="relative z-10 container mx-auto px-4 h-full flex items-center justify-center text-center">
             <div className="max-w-4xl">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-lg">
@@ -36,27 +36,22 @@ const Index = () => {
       </div>
 
       {/* Main Content */}
-    <div className="container mx-auto px-4 py-12 bg-gradient-to-b from-gray-900 to-black"> 
-  <div className="text-center mb-12">
-    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-      Get Your Flight Delay Prediction
-    </h2>
-    <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-      Enter your flight details below and our AI will analyze historical data, weather patterns, 
-      and airline performance to predict potential delays.
-    </p>
-  </div>
-</div>
-
+      <div className="container mx-auto px-4 py-12 bg-gradient-to-b from-gray-900 to-black"> 
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Get Your Flight Delay Prediction
+          </h2>
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            Enter your flight details below and our AI will analyze historical data, weather patterns, 
+            and airline performance to predict potential delays.
+          </p>
+        </div>
 
         <FlightPredictionForm />
-
-        {/* Features Section */}
-        
-
-        {/* Backend Integration Note */}
-      
       </div>
+
+      {/* Features Section */}
+      {/* Backend Integration Note */}
     </div>
   );
 };
