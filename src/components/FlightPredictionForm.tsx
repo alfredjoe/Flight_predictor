@@ -452,5 +452,3 @@ const FlightPredictionForm = () => {
     </div>
   );
 };
-
-export default FlightPredictionForm;
