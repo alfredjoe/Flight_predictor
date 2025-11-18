@@ -3,7 +3,7 @@ import { Plane, TrendingUp, Shield, Zap } from 'lucide-react';
 import heroImage from '@/assets/flight-hero.jpg';
 
 const Index = () => {
-  return (
+  return ( 
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <div className="relative">
