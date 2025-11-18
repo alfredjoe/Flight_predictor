@@ -36,16 +36,18 @@ const Index = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Get Your Flight Delay Prediction
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Enter your flight details below and our AI will analyze historical data, weather patterns, 
-            and airline performance to predict potential delays.
-          </p>
-        </div>
+    <div className="container mx-auto px-4 py-12 bg-gradient-to-b from-gray-900 to-black"> 
+  <div className="text-center mb-12">
+    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+      Get Your Flight Delay Prediction
+    </h2>
+    <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+      Enter your flight details below and our AI will analyze historical data, weather patterns, 
+      and airline performance to predict potential delays.
+    </p>
+  </div>
+</div>
+
 
         <FlightPredictionForm />
 
