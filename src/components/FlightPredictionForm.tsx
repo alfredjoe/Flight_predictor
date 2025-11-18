@@ -341,6 +341,7 @@ const FlightPredictionForm = () => {
               border-2
               border-border/50
               shadow-md
+              items-center
               hover:shadow-lg
               transition-all
               duration-200
