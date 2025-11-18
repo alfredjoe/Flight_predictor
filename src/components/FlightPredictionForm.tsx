@@ -165,279 +165,290 @@ const FlightPredictionForm = () => {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto space-y-8">
-      <Card className="
-        relative
-        bg-gradient-to-br from-background/80 to-background/95
-        rounded-3xl
-        shadow-xl
-        overflow-hidden
-        border-none
-      ">
-        <CardHeader className="text-center pb-8">
-          <CardTitle className="text-3xl lg:text-4xl text-primary flex items-center justify-center gap-4 mb-4">
-            <div className="relative">
-              <Plane className="w-10 h-10 animate-pulse" />
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full animate-ping"></div>
-            </div>
-            Flight Delay Predictor AI
-          </CardTitle>
-          <CardDescription className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Advanced machine learning predictions for flight delays with real-time analysis
-          </CardDescription>
-        </CardHeader>
-
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Day of Month */}
-              <div className="space-y-3 group">
-                <Label htmlFor="dayOfMonth" className="text-foreground font-semibold flex items-center gap-2 group-focus-within:text-primary transition-colors">
-                  <Calendar className="w-5 h-5 text-primary" />
-                  Day of Month
-                </Label>
-                <Select onValueChange={(value) => handleInputChange('dayOfMonth', value)}>
-                  <SelectTrigger className="h-12 bg-background/80 shadow-sm transition-all duration-200 rounded-xl border-none">
-                    <SelectValue placeholder="Select day (1-31)" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-60">
-                    {days.map((day) => (
-                      <SelectItem key={day} value={day.toString()}>
-                        {day}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Operating Airline */}
-              <div className="space-y-3 group">
-                <Label htmlFor="airline" className="text-foreground font-semibold flex items-center gap-2 group-focus-within:text-primary transition-colors">
-                  <Users className="w-5 h-5 text-primary" />
-                  Operating Airline
-                </Label>
-                <Select onValueChange={(value) => handleInputChange('operatingAirline', value)}>
-                  <SelectTrigger className="h-12 bg-background/80 shadow-sm transition-all duration-200 rounded-xl border-none">
-                    <SelectValue placeholder="Choose airline" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-60">
-                    {airlines.map((airline) => (
-                      <SelectItem key={airline.code} value={airline.code}>
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold text-primary">{airline.code}</span>
-                          <span className="text-muted-foreground">•</span>
-                          <span>{airline.name}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Tail Number */}
-              <div className="space-y-3 group">
-                <Label htmlFor="tailNumber" className="text-foreground font-semibold flex items-center gap-2 group-focus-within:text-primary transition-colors">
-                  <Hash className="w-5 h-5 text-primary" />
-                  Tail Number
-                </Label>
-                <Select onValueChange={(value) => handleInputChange('tailNumber', value)}>
-                  <SelectTrigger className="h-12 bg-background/80 shadow-sm transition-all duration-200 rounded-xl border-none">
-                    <SelectValue placeholder="Select tail number" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {tailNumbers.map((tail) => (
-                      <SelectItem key={tail} value={tail}>
-                        <span className="font-mono font-bold">{tail}</span>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Departure Hour */}
-              <div className="space-y-3 group">
-                <Label htmlFor="depHour" className="text-foreground font-semibold flex items-center gap-2 group-focus-within:text-primary transition-colors">
-                  <Clock className="w-5 h-5 text-primary" />
-                  Departure Hour (0-23)
-                </Label>
-                <Select onValueChange={(value) => handleInputChange('depHour', value)}>
-                  <SelectTrigger className="h-12 bg-background/80 shadow-sm transition-all duration-200 rounded-xl border-none">
-                    <SelectValue placeholder="Select hour" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-60">
-                    {hours.map((hour) => (
-                      <SelectItem key={hour} value={hour.toString()}>
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold">{hour.toString().padStart(2, '0')}:00</span>
-                          <span className="text-muted-foreground text-sm">
-                            ({hour === 0 ? '12:00 AM' : hour < 12 ? `${hour}:00 AM` : hour === 12 ? '12:00 PM' : `${hour - 12}:00 PM`})
-                          </span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Origin Airport */}
-              <div className="space-y-3 group">
-                <Label htmlFor="origin" className="text-foreground font-semibold flex items-center gap-2 group-focus-within:text-primary transition-colors">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  Origin Airport
-                </Label>
-                <Select onValueChange={(value) => handleInputChange('origin', value)}>
-                  <SelectTrigger className="h-12 bg-background/80 shadow-sm transition-all duration-200 rounded-xl border-none">
-                    <SelectValue placeholder="Departure airport" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-60">
-                    {airports.map((airport) => (
-                      <SelectItem key={airport.code} value={airport.code}>
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold text-primary">{airport.code}</span>
-                          <span className="text-muted-foreground">•</span>
-                          <span className="text-sm">{airport.name}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Destination Airport */}
-              <div className="space-y-3 group">
-                <Label htmlFor="destination" className="text-foreground font-semibold flex items-center gap-2 group-focus-within:text-primary transition-colors">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  Destination Airport
-                </Label>
-                <Select onValueChange={(value) => handleInputChange('destination', value)}>
-                  <SelectTrigger className="h-12 bg-background/80 shadow-sm transition-all duration-200 rounded-xl border-none">
-                    <SelectValue placeholder="Arrival airport" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-60">
-                    {airports.map((airport) => (
-                      <SelectItem key={airport.code} value={airport.code}>
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold text-primary">{airport.code}</span>
-                          <span className="text-muted-foreground">•</span>
-                          <span className="text-sm">{airport.name}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            {/* Weekend Radio, centered and shadow-only */}
-            <div className="
-              py-6
-              bg-background/40
-              rounded-2xl
-              shadow-md
-              mx-auto
-              border-none
-            ">
-              <div className="text-lg font-semibold text-center mb-4">Flight Day Type</div>
-              <div className="flex justify-center gap-8">
-                {/* Weekday Option */}
-                <div className="flex items-center space-x-3 p-4 rounded-lg bg-transparent shadow-none border-none">
-                  <RadioGroupItem value="0" id="weekend-no" />
-                  <Label htmlFor="weekend-no" className="cursor-pointer font-medium text-center">
-                    <div className="flex flex-col items-center">
-                      <span>Weekday</span>
-                      <span className="text-sm text-muted-foreground">Monday - Friday</span>
-                    </div>
-                  </Label>
-                </div>
-                {/* Weekend Option */}
-                <div className="flex items-center space-x-3 p-4 rounded-lg bg-transparent shadow-none border-none">
-                  <RadioGroupItem value="1" id="weekend-yes" />
-                  <Label htmlFor="weekend-yes" className="cursor-pointer font-medium text-center">
-                    <div className="flex flex-col items-center">
-                      <span>Weekend</span>
-                      <span className="text-sm text-muted-foreground">Saturday - Sunday</span>
-                    </div>
-                  </Label>
-                </div>
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <div className="pt-4">
-              <Button
-                type="submit"
-                size="lg"
-                className="
-                  w-full
-                  text-xl
-                  py-8
-                  rounded-full
-                  shadow-lg
-                  bg-gradient-to-r
-                  from-primary-glow
-                  via-primary
-                  to-teal-400
-                  hover:scale-105
-                  transition-transform
-                  duration-200
-                "
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <div className="flex items-center gap-3">
-                    <div className="animate-spin rounded-full h-6 w-6 border-2 border-white border-t-transparent"></div>
-                    <span>Analyzing Flight Data...</span>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-3">
-                    <Plane className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-200" />
-                    <span>Predict Flight Delay</span>
-                  </div>
-                )}
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-
-      {/* Prediction Result */}
-      {prediction && (
-        <Card className={`
-          animate-fade-in
-          shadow-2xl
+    <div className="min-h-screen w-full bg-gradient-to-br from-black via-gray-900 to-gray-800 py-12 px-4">
+      <div className="w-full max-w-5xl mx-auto space-y-8">
+        <Card className="
+          relative
+          bg-gradient-to-br from-white via-gray-50 to-gray-100
           rounded-3xl
-          transition-all duration-500
-          border-none
-          ${prediction.prediction === 'Delayed'
-            ? 'bg-gradient-to-br from-red-100 via-yellow-50 to-pink-50 dark:from-red-900/30 dark:to-yellow-900/30'
-            : 'bg-gradient-to-br from-green-100 via-teal-50 to-cyan-50 dark:from-green-900/30 dark:to-teal-900/30'
-          }
-        `}>
-          <CardHeader className="text-center pb-4">
-            <CardTitle className={`text-2xl flex items-center justify-center gap-3 ${
-              prediction.prediction === 'Delayed' ? 'text-red-600 dark:text-red-400' : 'text-teal-600 dark:text-teal-300'
-            }`}>
-              {prediction.prediction === 'Delayed' ? (
-                <XCircle className="w-8 h-8 animate-pulse" />
-              ) : (
-                <CheckCircle className="w-8 h-8 animate-pulse" />
-              )}
-              Prediction Result
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="text-center">
-            <div className="space-y-4">
-              <div className={`inline-flex items-center gap-2 px-6 py-3 rounded-full text-xl font-bold ${
-                prediction.prediction === 'Delayed'
-                  ? 'bg-red-500 text-white shadow-lg shadow-red-500/25'
-                  : 'bg-teal-500 text-white shadow-lg shadow-teal-500/25'
-              }`}>
-                {prediction.prediction === 'Delayed' ? '❌' : '✅'} {prediction.prediction}
+          shadow-2xl
+          border border-gray-200
+          overflow-hidden
+          before:content-[''] before:absolute before:inset-0 before:rounded-3xl
+          before:border-[3px] before:border-transparent
+          before:bg-gradient-to-r before:from-blue-400 before:via-cyan-400 before:to-teal-400
+          before:opacity-20
+          before:animate-pulse
+          ">
+          <CardHeader className="text-center relative z-10 pb-8">
+            <CardTitle className="text-3xl lg:text-4xl text-gray-900 flex items-center justify-center gap-4 mb-4">
+              <div className="relative">
+                <Plane className="w-10 h-10 text-blue-600 animate-pulse" />
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-600 rounded-full animate-ping"></div>
               </div>
-            </div>
+              Flight Delay Predictor AI
+            </CardTitle>
+            <CardDescription className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Advanced machine learning predictions for flight delays with real-time analysis
+            </CardDescription>
+          </CardHeader>
+
+          <CardContent className="relative z-10">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Day of Month */}
+                <div className="space-y-3 group">
+                  <Label htmlFor="dayOfMonth" className="text-gray-900 font-semibold flex items-center gap-2 group-focus-within:text-blue-600 transition-colors">
+                    <Calendar className="w-5 h-5 text-blue-600" />
+                    Day of Month
+                  </Label>
+                  <Select onValueChange={(value) => handleInputChange('dayOfMonth', value)}>
+                    <SelectTrigger className="h-12 bg-white border-2 border-gray-300 hover:border-blue-500 focus:border-blue-600 shadow-sm transition-all duration-200 rounded-xl">
+                      <SelectValue placeholder="Select day (1-31)" />
+                    </SelectTrigger>
+                    <SelectContent className="max-h-60">
+                      {days.map((day) => (
+                        <SelectItem key={day} value={day.toString()}>
+                          {day}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Operating Airline */}
+                <div className="space-y-3 group">
+                  <Label htmlFor="airline" className="text-gray-900 font-semibold flex items-center gap-2 group-focus-within:text-blue-600 transition-colors">
+                    <Users className="w-5 h-5 text-blue-600" />
+                    Operating Airline
+                  </Label>
+                  <Select onValueChange={(value) => handleInputChange('operatingAirline', value)}>
+                    <SelectTrigger className="h-12 bg-white border-2 border-gray-300 hover:border-blue-500 focus:border-blue-600 shadow-sm transition-all duration-200 rounded-xl">
+                      <SelectValue placeholder="Choose airline" />
+                    </SelectTrigger>
+                    <SelectContent className="max-h-60">
+                      {airlines.map((airline) => (
+                        <SelectItem key={airline.code} value={airline.code}>
+                          <div className="flex items-center gap-2">
+                            <span className="font-mono font-bold text-blue-600">{airline.code}</span>
+                            <span className="text-gray-400">•</span>
+                            <span>{airline.name}</span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Tail Number */}
+                <div className="space-y-3 group">
+                  <Label htmlFor="tailNumber" className="text-gray-900 font-semibold flex items-center gap-2 group-focus-within:text-blue-600 transition-colors">
+                    <Hash className="w-5 h-5 text-blue-600" />
+                    Tail Number
+                  </Label>
+                  <Select onValueChange={(value) => handleInputChange('tailNumber', value)}>
+                    <SelectTrigger className="h-12 bg-white border-2 border-gray-300 hover:border-blue-500 focus:border-blue-600 shadow-sm transition-all duration-200 rounded-xl">
+                      <SelectValue placeholder="Select tail number" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {tailNumbers.map((tail) => (
+                        <SelectItem key={tail} value={tail}>
+                          <span className="font-mono font-bold">{tail}</span>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Departure Hour */}
+                <div className="space-y-3 group">
+                  <Label htmlFor="depHour" className="text-gray-900 font-semibold flex items-center gap-2 group-focus-within:text-blue-600 transition-colors">
+                    <Clock className="w-5 h-5 text-blue-600" />
+                    Departure Hour (0-23)
+                  </Label>
+                  <Select onValueChange={(value) => handleInputChange('depHour', value)}>
+                    <SelectTrigger className="h-12 bg-white border-2 border-gray-300 hover:border-blue-500 focus:border-blue-600 shadow-sm transition-all duration-200 rounded-xl">
+                      <SelectValue placeholder="Select hour" />
+                    </SelectTrigger>
+                    <SelectContent className="max-h-60">
+                      {hours.map((hour) => (
+                        <SelectItem key={hour} value={hour.toString()}>
+                          <div className="flex items-center gap-2">
+                            <span className="font-mono font-bold">{hour.toString().padStart(2, '0')}:00</span>
+                            <span className="text-gray-500 text-sm">
+                              ({hour === 0 ? '12:00 AM' : hour < 12 ? `${hour}:00 AM` : hour === 12 ? '12:00 PM' : `${hour - 12}:00 PM`})
+                            </span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Origin Airport */}
+                <div className="space-y-3 group">
+                  <Label htmlFor="origin" className="text-gray-900 font-semibold flex items-center gap-2 group-focus-within:text-blue-600 transition-colors">
+                    <MapPin className="w-5 h-5 text-blue-600" />
+                    Origin Airport
+                  </Label>
+                  <Select onValueChange={(value) => handleInputChange('origin', value)}>
+                    <SelectTrigger className="h-12 bg-white border-2 border-gray-300 hover:border-blue-500 focus:border-blue-600 shadow-sm transition-all duration-200 rounded-xl">
+                      <SelectValue placeholder="Departure airport" />
+                    </SelectTrigger>
+                    <SelectContent className="max-h-60">
+                      {airports.map((airport) => (
+                        <SelectItem key={airport.code} value={airport.code}>
+                          <div className="flex items-center gap-2">
+                            <span className="font-mono font-bold text-blue-600">{airport.code}</span>
+                            <span className="text-gray-400">•</span>
+                            <span className="text-sm">{airport.name}</span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Destination Airport */}
+                <div className="space-y-3 group">
+                  <Label htmlFor="destination" className="text-gray-900 font-semibold flex items-center gap-2 group-focus-within:text-blue-600 transition-colors">
+                    <MapPin className="w-5 h-5 text-blue-600" />
+                    Destination Airport
+                  </Label>
+                  <Select onValueChange={(value) => handleInputChange('destination', value)}>
+                    <SelectTrigger className="h-12 bg-white border-2 border-gray-300 hover:border-blue-500 focus:border-blue-600 shadow-sm transition-all duration-200 rounded-xl">
+                      <SelectValue placeholder="Arrival airport" />
+                    </SelectTrigger>
+                    <SelectContent className="max-h-60">
+                      {airports.map((airport) => (
+                        <SelectItem key={airport.code} value={airport.code}>
+                          <div className="flex items-center gap-2">
+                            <span className="font-mono font-bold text-blue-600">{airport.code}</span>
+                            <span className="text-gray-400">•</span>
+                            <span className="text-sm">{airport.name}</span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Weekend Radio */}
+              <div className="
+                space-y-4
+                p-6
+                bg-gradient-to-r from-gray-50 to-white
+                rounded-xl
+                border
+                border-gray-200
+                shadow-sm
+              ">
+                <Label className="text-gray-900 font-semibold text-lg">Flight Day Type</Label>
+                <RadioGroup
+                  value={formData.isWeekend}
+                  onValueChange={(value) => handleInputChange('isWeekend', value)}
+                  className="flex gap-8"
+                >
+                  <div className="flex items-center space-x-3 p-4 rounded-lg border-2 border-gray-300 hover:border-blue-500 bg-white transition-colors cursor-pointer">
+                    <RadioGroupItem value="0" id="weekend-no" />
+                    <Label htmlFor="weekend-no" className="cursor-pointer font-medium text-gray-900">
+                      <div className="flex flex-col">
+                        <span>Weekday</span>
+                        <span className="text-sm text-gray-500">Monday - Friday</span>
+                      </div>
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-3 p-4 rounded-lg border-2 border-gray-300 hover:border-blue-500 bg-white transition-colors cursor-pointer">
+                    <RadioGroupItem value="1" id="weekend-yes" />
+                    <Label htmlFor="weekend-yes" className="cursor-pointer font-medium text-gray-900">
+                      <div className="flex flex-col">
+                        <span>Weekend</span>
+                        <span className="text-sm text-gray-500">Saturday - Sunday</span>
+                      </div>
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </div>
+
+              {/* Submit Button */}
+              <div className="pt-4">
+                <Button 
+                  type="submit"
+                  size="lg"
+                  className="
+                    w-full
+                    text-xl
+                    py-8
+                    rounded-full
+                    shadow-xl
+                    bg-gradient-to-r
+                    from-blue-600
+                    via-cyan-500
+                    to-teal-500
+                    hover:scale-105
+                    transition-transform
+                    duration-200
+                    text-white
+                  "
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <div className="flex items-center gap-3">
+                      <div className="animate-spin rounded-full h-6 w-6 border-2 border-white border-t-transparent"></div>
+                      <span>Analyzing Flight Data...</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-3">
+                      <Plane className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-200" />
+                      <span>Predict Flight Delay</span>
+                    </div>
+                  )}
+                </Button>
+              </div>
+            </form>
           </CardContent>
         </Card>
-      )}
+
+        {/* Prediction Result */}
+        {prediction && (
+          <Card className={`
+            animate-fade-in
+            shadow-2xl
+            border-4
+            rounded-3xl
+            transition-all duration-500
+            ${prediction.prediction === 'Delayed'
+              ? 'border-red-400 bg-gradient-to-br from-white via-red-50 to-pink-50'
+              : 'border-teal-400 bg-gradient-to-br from-white via-green-50 to-teal-50'
+            }
+          `}>
+            <CardHeader className="text-center pb-4">
+              <CardTitle className={`text-2xl flex items-center justify-center gap-3 ${
+                prediction.prediction === 'Delayed' ? 'text-red-600' : 'text-teal-600'
+              }`}>
+                {prediction.prediction === 'Delayed' ? (
+                  <XCircle className="w-8 h-8 animate-pulse" />
+                ) : (
+                  <CheckCircle className="w-8 h-8 animate-pulse" />
+                )}
+                Prediction Result
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-center">
+              <div className="space-y-4">
+                <div className={`inline-flex items-center gap-2 px-6 py-3 rounded-full text-xl font-bold ${
+                  prediction.prediction === 'Delayed'
+                    ? 'bg-red-500 text-white shadow-lg shadow-red-500/25'
+                    : 'bg-teal-500 text-white shadow-lg shadow-teal-500/25'
+                }`}>
+                  {prediction.prediction === 'Delayed' ? '❌' : '✅'} {prediction.prediction}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+      </div>
     </div>
   );
 };
