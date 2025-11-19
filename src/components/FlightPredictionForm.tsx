@@ -165,7 +165,7 @@ const FlightPredictionForm = () => {
               <Plane className="w-10 h-10 text-primary animate-pulse" />
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-ping"></div>
             </div>
-            Flight Delay Predictor AI
+            Flight Delay Predictor
           </CardTitle>
           <CardDescription className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Advanced machine learning predictions for flight delays - March 2025
