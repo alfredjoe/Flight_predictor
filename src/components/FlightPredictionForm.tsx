@@ -31,6 +31,9 @@ const FlightPredictionForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
+  // Your Render API URL
+  const API_URL = 'https://flight-predictor-model-ro8r.onrender.com';
+
   const airports = [
     { code: 'ATL', name: 'Atlanta Hartsfield-Jackson' },
     { code: 'XNA', name: 'Northwest Arkansas Regional' },
@@ -84,18 +87,23 @@ const FlightPredictionForm = () => {
 
     setIsLoading(true);
 
-    // Prepare data for your FastAPI model with Month fixed to 3
+    // Show wake-up message for Render free tier
+    toast({
+      title: "⏳ Connecting to AI Model...",
+      description: "First request may take 30-60 seconds as the server wakes up.",
+    });
+
     const apiData = {
       DayOfWeek: parseInt(formData.dayOfWeek),
       Origin: formData.origin,
       Dest: formData.dest,
       DepDelay: parseFloat(formData.depDelay),
-      Month: 3, // Fixed to March
+      Month: 3,
       Day: parseInt(formData.day)
     };
 
     try {
-      const response = await fetch('http://localhost:8000/predict/', {
+      const response = await fetch(`${API_URL}/predict/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -104,21 +112,32 @@ const FlightPredictionForm = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(`Server error: ${response.status} - ${errorText}`);
       }
 
       const result = await response.json();
       setPrediction(result);
       
       toast({
-        title: "Prediction Complete",
-        description: `Flight prediction: ${result.predicted_delay}`,
+        title: "✈️ Prediction Complete!",
+        description: `Flight status: ${result.predicted_delay}`,
       });
     } catch (error) {
       console.error('Prediction error:', error);
+      
+      let errorMessage = "Could not connect to the prediction service.";
+      if (error instanceof Error) {
+        if (error.message.includes('Failed to fetch')) {
+          errorMessage = `Cannot connect to the API. The server might be starting up. Please wait 60 seconds and try again.`;
+        } else {
+          errorMessage = error.message;
+        }
+      }
+      
       toast({
-        title: "Prediction Failed",
-        description: "Could not connect to the prediction service. Please try again.",
+        title: "❌ Prediction Failed",
+        description: errorMessage,
         variant: "destructive"
       });
     } finally {
@@ -128,6 +147,14 @@ const FlightPredictionForm = () => {
 
   return (
     <div className="w-full max-w-5xl mx-auto space-y-8">
+      {/* API Status Indicator */}
+      <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+        <div className="flex items-center gap-2 px-4 py-2 bg-secondary/50 rounded-full">
+          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+          <span>Connected to Render Cloud API</span>
+        </div>
+      </div>
+
       <Card className="relative bg-gradient-to-br from-card via-card to-card/90 rounded-3xl shadow-2xl border-2 border-primary/20 overflow-hidden group hover:border-primary/40 transition-all duration-300">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl"></div>
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500"></div>
