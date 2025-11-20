@@ -168,7 +168,7 @@ const FlightPredictionForm = () => {
             Flight Delay Predictor
           </CardTitle>
           <CardDescription className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Advanced machine learning predictions for flight delays - March 2025
+            Advanced machine learning predictions for flight delays
           </CardDescription>
         </CardHeader>
 
@@ -198,20 +198,21 @@ const FlightPredictionForm = () => {
               {/* Day of Month */}
               <div className="space-y-3 group">
                 <Label className="text-foreground font-semibold flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-primary" />
-                  Day of Month (March)
-                </Label>
+  <Calendar className="w-5 h-5 text-primary" />
+  Day of Month
+</Label>
                 <Select onValueChange={(value) => handleInputChange('day', value)}>
                   <SelectTrigger className="h-12 bg-background/80 border-2 border-border hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-sm transition-all duration-200 rounded-xl">
                     <SelectValue placeholder="Select day (1-31)" />
                   </SelectTrigger>
                   <SelectContent className="max-h-60">
-                    {days.map((day) => (
-                      <SelectItem key={day} value={day.toString()}>
-                        March {day}, 2025
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
+  {days.map((day) => (
+    <SelectItem key={day} value={day.toString()}>
+      {day}
+    </SelectItem>
+  ))}
+</SelectContent>
+
                 </Select>
               </div>
 
