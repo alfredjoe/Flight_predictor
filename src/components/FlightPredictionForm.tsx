@@ -216,52 +216,54 @@ const FlightPredictionForm = () => {
               </div>
 
               {/* Origin Airport */}
-              <div className="space-y-3 group">
-                <Label className="text-foreground font-semibold flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  Origin Airport
-                </Label>
-                <Select onValueChange={(value) => handleInputChange('origin', value)}>
-                  <SelectTrigger className="h-12 bg-background/80 border-2 border-border hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-sm transition-all duration-200 rounded-xl">
-                    <SelectValue placeholder="Departure airport" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-60">
-                    {airports.map((airport) => (
-                      <SelectItem key={airport.code} value={airport.code}>
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold text-primary">{airport.code}</span>
-                          <span className="text-muted-foreground">•</span>
-                          <span className="text-sm">{airport.name}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+             <div className="space-y-3 group">
+  <Label className="text-foreground font-semibold flex items-center gap-2">
+    <MapPin className="w-5 h-5 text-primary" />
+    Origin Airport
+  </Label>
+  <Select onValueChange={(value) => handleInputChange('origin', value)} value={formData.origin}>
+    <SelectTrigger className="h-12 bg-background/80 border-2 border-border ...">
+      <SelectValue placeholder="Departure airport" />
+    </SelectTrigger>
+    <SelectContent className="max-h-60">
+      {airports.map((airport) => (
+        <SelectItem key={airport.code} value={airport.code} disabled={airport.code === formData.dest}>
+          <div className="flex items-center gap-2">
+            <span className="font-mono font-bold text-primary">{airport.code}</span>
+            <span className="text-muted-foreground">•</span>
+            <span className="text-sm">{airport.name}</span>
+          </div>
+        </SelectItem>
+      ))}
+    </SelectContent>
+  </Select>
+</div>
 
               {/* Destination Airport */}
               <div className="space-y-3 group">
-                <Label className="text-foreground font-semibold flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  Destination Airport
-                </Label>
-                <Select onValueChange={(value) => handleInputChange('dest', value)}>
-                  <SelectTrigger className="h-12 bg-background/80 border-2 border-border hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-sm transition-all duration-200 rounded-xl">
-                    <SelectValue placeholder="Arrival airport" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-60">
-                    {airports.map((airport) => (
-                      <SelectItem key={airport.code} value={airport.code}>
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold text-primary">{airport.code}</span>
-                          <span className="text-muted-foreground">•</span>
-                          <span className="text-sm">{airport.name}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+  <Label className="text-foreground font-semibold flex items-center gap-2">
+    <MapPin className="w-5 h-5 text-primary" />
+    Destination Airport
+  </Label>
+  <Select onValueChange={(value) => handleInputChange('dest', value)} value={formData.dest}>
+    <SelectTrigger className="h-12 bg-background/80 border-2 border-border ...">
+      <SelectValue placeholder="Arrival airport" />
+    </SelectTrigger>
+    <SelectContent className="max-h-60">
+      {airports
+        .filter((airport) => airport.code !== formData.origin)
+        .map((airport) => (
+          <SelectItem key={airport.code} value={airport.code}>
+            <div className="flex items-center gap-2">
+              <span className="font-mono font-bold text-primary">{airport.code}</span>
+              <span className="text-muted-foreground">•</span>
+              <span className="text-sm">{airport.name}</span>
+            </div>
+          </SelectItem>
+        ))}
+    </SelectContent>
+  </Select>
+</div>
 
               {/* Departure Delay */}
               <div className="space-y-3 group col-span-1 md:col-span-2 lg:col-span-1">
